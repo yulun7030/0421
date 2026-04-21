@@ -22,8 +22,15 @@ function draw() {
   let imgWidth = width * 0.6;
   let imgHeight = height * 0.6;
   
-  // 將擷取的攝影機影像繪製在視窗正中間
-  image(capture, width / 2, height / 2, imgWidth, imgHeight);
+  // 使用 push() 與 pop() 來隔離翻轉效果，避免影響到後續繪製的圖形
+  push();
+  // 將座標原點移動到畫布的中心
+  translate(width / 2, height / 2);
+  // 利用 scale 將 X 軸縮放為 -1 進行水平翻轉（達到鏡像效果）
+  scale(-1, 1);
+  // 由於原點已移至中心，只需在 (0, 0) 的位置繪製影像即可
+  image(capture, 0, 0, imgWidth, imgHeight);
+  pop();
 }
 
 // 監聽視窗大小改變事件，確保縮放視窗時畫布依然能維持全螢幕
